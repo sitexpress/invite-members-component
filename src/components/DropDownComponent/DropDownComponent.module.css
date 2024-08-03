@@ -1,0 +1,299 @@
+/* ------------------------------------------------------------------*/
+/*Company Selection Dropdown - styles*/
+
+.dropdown_company_selection {
+    position: absolute;
+    top: 156px;
+    left: 16px;
+    /*position: relative;*/
+    margin-top: 20px;
+    height: 52px;
+    opacity: 1;
+    z-index:1002;
+}
+
+.dropdown_company_panel {
+    position: absolute;
+    top: 226px;
+    left: 16px;
+    /*margin-top: -3px;*/
+    width: 507px;
+    border-right: 1px solid #BDC1CAFF;
+    border-left: 1px solid #BDC1CAFF;
+    border-radius: 3px;
+    outline: none;
+    z-index:1001;
+}
+
+.dropdown_company_selection input {
+    width: 507px;
+    height: 52px;
+    padding-left: 20px;
+    padding-right: 52px;
+    font-family: Figtree;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    border: 1px solid #BDC1CAFF;
+    border-radius: 3px;
+    outline: none;
+    cursor:pointer;
+}
+
+.chevron {
+    position: absolute;
+    top: -5px;
+    right: -3px;
+    height: 40px;
+    width:24px;
+    height:24px;
+}
+
+.dropdown_company_selection svg {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    fill: #171A1FFF;
+}
+
+/* hover */
+.dropdown_company_selection input:hover {
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    border-color: #A8ADB7FF;
+}
+
+/* focused */
+.dropdown_company_selection input:focus {
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    border-color: #9095A1FF;
+}
+
+/* disabled */
+.dropdown_company_selection input:disabled {
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    border-color: #BDC1CAFF;
+}
+
+.dropdown_company_selection :disabled + .icon, .dropdown_company_selection :disabled + .icon + .icon {
+    fill: #171A1FFF;
+}
+
+/*my styles*/
+.dropdown_company_selection_opened {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    height: 52px;
+    width: 505px;
+    margin-top: -1px;
+    padding-left: 20px;
+    padding-right: 52px;
+    font-family: Figtree;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+}
+
+.dropdown_company_selection_opened:hover {
+    background-color: #F3F4F6FF;
+    cursor: pointer;
+}
+
+.dropdown_company_selection_opened:last-child {
+    border-radius: 3px;
+    outline: none;
+    border-bottom: 1px solid #BDC1CAFF;
+}
+
+
+/*-----------------------------------------------------------------------------------------*/
+/* Functional Team styles */
+.dropdown_team_selection {
+    height: 52px;
+    width: 495px;
+    opacity: 1;
+    z-index:998;
+}
+
+
+.dropdown_team_panel {
+    width: 495px;
+    border-right: 1px solid #BDC1CAFF;
+    border-left: 1px solid #BDC1CAFF;
+    border-radius: 3px;
+    outline: none;
+    z-index:997;
+}
+
+.input {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    padding-bottom: 6px;
+    gap: 12px;
+    z-index:997;
+}
+
+.dropdown_team_selection .input {
+    width: 495px;
+    height: 52px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-family: Figtree;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    background: #FFFFFFFF;
+    border: 1px solid #BDC1CAFF;
+    border-radius: 3px;
+    outline: none;
+    cursor:pointer;
+    z-index:996;
+}
+
+
+
+/* hover */
+.dropdown_team_selection .input:hover {
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    border-color: #A8ADB7FF;
+}
+
+/* focused */
+.dropdown_team_selection .input:focus {
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    border-color: #9095A1FF;
+}
+
+/* disabled */
+.dropdown_team_selection .input:disabled {
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    border-color: #BDC1CAFF;
+}
+
+.dropdown_team_selection :disabled + .icon, .dropdown_team_selection :disabled + .icon + .icon {
+    fill: #171A1FFF;
+}
+
+.cover_layer {
+
+    height: 150px;
+    width: 495px;
+    opacity: 1;
+    z-index:10000;
+    background-color: #61dafb;
+}
+
+/*my styles*/
+.dropdown_team_panel_opened {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    opacity: 1;
+    height: 52px;
+    width: 493px;
+    margin-top: -1px;
+    padding-left: 20px;
+    padding-right: 52px;
+    font-family: Figtree;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    z-index:996;
+}
+
+.dropdown_team_panel_opened:hover {
+    background-color: #F3F4F6FF;
+    cursor: pointer;
+}
+
+.dropdown_team_panel_opened:last-child {
+    border-radius: 3px;
+    outline: none;
+    border-bottom: 1px solid #BDC1CAFF;
+}
+
+
+/* Tag 1 */
+.tag {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: Figtree;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    opacity: 1;
+}
+
+.cross_icon {
+    position: absolute;
+    top: -12px;
+    right: -5px;
+    width: 22px;
+    background-color: #FFFFFF;
+    border-radius: 31px;
+}
+
+
+/* Tag 1 - Item */
+.tag .tag_item {
+    height: 36px;
+    padding-left: 13px;
+    padding-right: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+}
+
+.tag .tag_item > * {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+/* Tag item 1 */
+.tag .tag_item:nth-child(1) {
+    font-family: Figtree;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #FFFFFFFF;
+    background: #DD001CFF;
+}
+
+/* Tag item 1 - Pressed */
+.tag .tag_item:nth-child(1):hover {
+    color: #FFFFFFFF;
+    background: #B40018FF;
+}
+
+/* Tag item 1 - Pressed */
+.tag .tag_item:nth-child(1):hover:active {
+    color: #FFFFFFFF;
+    background: #8C0013FF;
+}
+
+/* Tag item 1 - Pressed */
+.tag .tag_item:nth-child(1):disabled {
+    color: #FFFFFFFF;
+    background: #DD001CFF;
+}

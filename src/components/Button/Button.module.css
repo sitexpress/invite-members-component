@@ -1,0 +1,35 @@
+
+/* Button 88 */
+.button {
+    width: 95px;
+    height: 52px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Figtree;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    color: #DD001CFF;
+    background: #FFFFFFFF;
+    opacity: 1;
+    border-radius: 0px 3px 3px 0px;
+    border-width: 1px;
+    border-color: #DD001CFF;
+    border-style: solid;
+}
+
+.button:hover {
+    color: #B40018FF;
+    background: #FFFFFFFF;
+}
+
+.button:hover:active {
+    color: #8C0013FF;
+    background: #FFFFFFFF;
+}
+
+.button:disabled {
+    opacity: 0.4;
+}
