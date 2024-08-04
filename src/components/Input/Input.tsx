@@ -1,10 +1,11 @@
 import React, {useState,FocusEvent,FormEvent } from 'react';
 import classes from "./Input.module.css"
+import {EmailErrorType} from "../../types/ivnviteMembersTypes";
 
 type InputComponentTypes = {
     emailInputFieldValue: string
     setEmailInputFieldValue: (value:string) => void
-    emailInputFieldValueError: boolean;
+    emailInputFieldValueError: EmailErrorType;
 }
 export const Input:React.FC<InputComponentTypes> = ({
                                                                 emailInputFieldValue,
@@ -35,13 +36,13 @@ export const Input:React.FC<InputComponentTypes> = ({
         <>
             {
                 emailInputFieldValueError &&
-                <span className={classes.error_message}>Enter an email first please</span>
+                <span className={classes.error_message}>{emailInputFieldValueError}</span>
             }
 
             <input
                 value={emailInputFieldValue}
                 type="text"
-                placeholder={focus ? "" : "Enter email address" }
+                placeholder={focus ? "" : "Enter an email address" }
                 onChange={(e) => onChangeHandler(e)}
                 onFocus={(e) => onFocusHandler(e)}
                 onBlur={(e) => onBlurHandler(e)}

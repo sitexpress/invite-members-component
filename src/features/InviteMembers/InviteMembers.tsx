@@ -3,42 +3,46 @@ import classes from "./InviteMembers.module.css"
 import {DropDownComponent} from "../../components/DropDownComponent/DropDownComponent";
 import {
     CompaniesListTypes,
-    CompanyTitlesList,
-    FunctionalTeamListTypes,
+    CompanyTitlesList, EmailErrorType,
+    FunctionalTeamListTypes, PermissionList,
     StagedInvitationsListTypes
-} from "../../data/dataTypes";
+} from "../../types/ivnviteMembersTypes";
 import {Input} from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
+import {PersonIcon} from "@radix-ui/react-icons";
 
 export const InviteMembers = () => {
-    const[companiesList, setCompaniesList] = useState<CompaniesListTypes[]>([
-        {id:1, title: "Acme Corp"},
-        {id:2, title: "Weyland-Yutani Corp"},
-        {id:3, title: "Tyrell Corp"},
-        {id:4, title: "Wallace  Corp"},
+    const [companiesList, setCompaniesList] = useState<CompaniesListTypes[]>([
+        {id: 1, title: "Acme Corp"},
+        {id: 2, title: "Weyland-Yutani Corp"},
+        {id: 3, title: "Tyrell Corp"},
+        {id: 4, title: "Wallace  Corp"},
     ])
 
-    const[functionalTeamList, setFunctionalTeamList] = useState<FunctionalTeamListTypes[]>([
-        {id:1, title: "HR"},
-        {id:2, title: "Finance"},
-        {id:3, title: "Custom Service"},
-        {id:4, title: "Logistics"},
-        {id:5, title: "Engineering"},
-        {id:6, title: "Design"},
+    const [functionalTeamList, setFunctionalTeamList] = useState<FunctionalTeamListTypes[]>([
+        {id: 1, title: "HR"},
+        {id: 2, title: "Finance"},
+        {id: 3, title: "Custom Service"},
+        {id: 4, title: "Logistics"},
+        {id: 5, title: "Engineering"},
+        {id: 6, title: "Design"},
     ])
     const [emailInputFieldValue, setEmailInputFieldValue] = useState<string>("")
-    const [emailInputFieldValueError, setEmailInputFieldError] = useState<boolean>(false)
-    const [isDropdownCompanySelectOpen, setIsDropdownCompanySelectOpen] = useState<boolean>(false)
-    const [isFunctionalTeamOpen, setIsFunctionalTeamOpen] = useState<boolean>(false)
-    const [company, setCompany] = useState<CompanyTitlesList>("")
-    const [team, setTeam]=useState<FunctionalTeamListTypes[] | []>([])
-    const [stagedInvitationsList, setStagedInvitationsList]=useState<StagedInvitationsListTypes[] | []>([])
+    const [emailInputFieldValueError, setEmailInputFieldError] = useState<EmailErrorType>("")
 
+    const [isDropdownCompanySelectOpen, setIsDropdownCompanySelectOpen] = useState<boolean>(false)
+    const [company, setCompany] = useState<CompanyTitlesList>("")
+
+    const [isFunctionalTeamOpen, setIsFunctionalTeamOpen] = useState<boolean>(false)
+    const [team, setTeam] = useState<FunctionalTeamListTypes[] | []>([])
+
+    // const [inviteePermLevel, setInviteePermLevel] = useState<PermissionList>("General")
+    const [stagedInvitationsList, setStagedInvitationsList] = useState<StagedInvitationsListTypes[] | []>([])
 
 
 
     return (
-        <div className={classes.container} >
+        <div className={classes.container}>
             <h2 className={classes.text}>Invite Members</h2>
             <div className={classes.textbox}>
                 <Input
@@ -48,6 +52,7 @@ export const InviteMembers = () => {
                 />
                 <Button
                     emailInputFieldValue={emailInputFieldValue}
+                    setEmailInputFieldValue={setEmailInputFieldValue}
                     emailInputFieldValueError={emailInputFieldValueError}
                     setEmailInputFieldError={setEmailInputFieldError}
                     stagedInvitationsList={stagedInvitationsList}
@@ -55,11 +60,11 @@ export const InviteMembers = () => {
                 />
             </div>
 
-            <DropDownComponent isDropdownCompanySelectOpen={isDropdownCompanySelectOpen}
+            <DropDownComponent mode="company-selection"
+                               isDropdownCompanySelectOpen={isDropdownCompanySelectOpen}
                                setIsDropdownCompanySelectOpen={setIsDropdownCompanySelectOpen}
                                setCompany={setCompany}
                                company={company}
-                               mode={"company-selection"}
                                isFunctionalTeamOpen={isFunctionalTeamOpen}
                                setIsFunctionalTeamOpen={setIsFunctionalTeamOpen}
                                team={team}
@@ -68,33 +73,30 @@ export const InviteMembers = () => {
                                setCompaniesList={setCompaniesList}
                                functionalTeamList={functionalTeamList}
                                setFunctionalTeamList={setFunctionalTeamList}
+                               stagedInvitationsList={stagedInvitationsList}
+                               setStagedInvitationsList={setStagedInvitationsList}
             />
 
 
             <div className={classes.group}>
                 <h2 className={classes.group_text}>Functional Team</h2>
-            <DropDownComponent isDropdownCompanySelectOpen={isDropdownCompanySelectOpen}
-                               setIsDropdownCompanySelectOpen={setIsDropdownCompanySelectOpen}
-                               setCompany={setCompany}
-                               company={company}
-                               mode={"functional-team-assignment"}
-                               isFunctionalTeamOpen={isFunctionalTeamOpen}
-                               setIsFunctionalTeamOpen={setIsFunctionalTeamOpen}
-                               team={team}
-                               setTeam={setTeam}
-                               companiesList={companiesList}
-                               setCompaniesList={setCompaniesList}
-                               functionalTeamList={functionalTeamList}
-                               setFunctionalTeamList={setFunctionalTeamList}
-            />
-                {/*<div className={classes.rectangle}>*/}
-                {/*    <div className={classes.tag}>*/}
-                {/*        <div className={classes.tag_item}>sdcsdcscdscdsd</div>*/}
-                {/*        <button className={classes.delete_group}></button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <DropDownComponent mode="functional-team-assignment"
+                                   isDropdownCompanySelectOpen={isDropdownCompanySelectOpen}
+                                   setIsDropdownCompanySelectOpen={setIsDropdownCompanySelectOpen}
+                                   setCompany={setCompany}
+                                   company={company}
+                                   isFunctionalTeamOpen={isFunctionalTeamOpen}
+                                   setIsFunctionalTeamOpen={setIsFunctionalTeamOpen}
+                                   team={team}
+                                   setTeam={setTeam}
+                                   companiesList={companiesList}
+                                   setCompaniesList={setCompaniesList}
+                                   functionalTeamList={functionalTeamList}
+                                   setFunctionalTeamList={setFunctionalTeamList}
+                                   stagedInvitationsList={stagedInvitationsList}
+                                   setStagedInvitationsList={setStagedInvitationsList}
+                />
             </div>
-
             <table className={classes.table}>
                 <thead className={classes.table_head}>
                 <tr className={classes.table_head_row}>
@@ -104,46 +106,44 @@ export const InviteMembers = () => {
                 </thead>
                 <tbody className={classes.table_body}>
                 {
-                    stagedInvitationsList.map((inviteeEmail, index) => (
+                    stagedInvitationsList.map((invitee, index) => (
                         <tr>
                             <td>
-                                <div className={classes.avatar}></div>
-                                <div>{inviteeEmail.email}</div>
+
+                                <div className={classes.avatar}>
+                                    <PersonIcon className={classes.person_icon}/>
+                                </div>
+                                <div>{invitee.email}</div>
                             </td>
                             <td>
                                 <div className={classes.dropdown_permission}>
-                                    <input type="text" value={inviteeEmail.permission}/>
+                                    <DropDownComponent mode="invitee"
+                                                       isDropdownCompanySelectOpen={isDropdownCompanySelectOpen}
+                                                       setIsDropdownCompanySelectOpen={setIsDropdownCompanySelectOpen}
+                                                       setCompany={setCompany}
+                                                       company={company}
+                                                       isFunctionalTeamOpen={isFunctionalTeamOpen}
+                                                       setIsFunctionalTeamOpen={setIsFunctionalTeamOpen}
+                                                       team={team}
+                                                       setTeam={setTeam}
+                                                       companiesList={companiesList}
+                                                       setCompaniesList={setCompaniesList}
+                                                       functionalTeamList={functionalTeamList}
+                                                       setFunctionalTeamList={setFunctionalTeamList}
+                                                       invitee={invitee}
+                                                       stagedInvitationsList={stagedInvitationsList}
+                                                       setStagedInvitationsList={setStagedInvitationsList}
+                                    />
                                 </div>
                             </td>
                         </tr>
                     ))
                 }
-                {/*<tr>*/}
-                {/*    <td>*/}
-                {/*        <div className={classes.avatar}></div>*/}
-                {/*        <div>HTML tables</div>*/}
-                {/*    </td>*/}
-                {/*    <td>*/}
-                {/*        <div className={classes.dropdown_permission}>*/}
-                {/*            <input type="text"/>*/}
-                {/*        </div>*/}
-                {/*    </td>*/}
-                {/*</tr>*/}
-                {/*<tr>*/}
-                {/*    <td>*/}
-                {/*        <div className={classes.avatar}></div>*/}
-                {/*        <div>Hanzulator</div>*/}
-                {/*    </td>*/}
-                {/*    <td>*/}
-                {/*        <div className={classes.dropdown_permission}>*/}
-                {/*            <input type="text"/>*/}
-                {/*        </div>*/}
-                {/*    </td>*/}
-                {/*</tr>*/}
                 </tbody>
             </table>
-
-            <button className={classes.btn_request}>Send Requests</button>
+            <div className={classes.btn_wrapper}>
+                <button className={classes.btn_request}>Send Requests</button>
+            </div>
         </div>
     );
 };

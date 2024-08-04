@@ -1,11 +1,9 @@
 /* ------------------------------------------------------------------*/
 /*Company Selection Dropdown - styles*/
-
 .dropdown_company_selection {
     position: absolute;
     top: 156px;
     left: 16px;
-    /*position: relative;*/
     margin-top: 20px;
     height: 52px;
     opacity: 1;
@@ -16,7 +14,6 @@
     position: absolute;
     top: 226px;
     left: 16px;
-    /*margin-top: -3px;*/
     width: 507px;
     border-right: 1px solid #BDC1CAFF;
     border-left: 1px solid #BDC1CAFF;
@@ -147,9 +144,10 @@
 
 .dropdown_team_selection .input {
     width: 495px;
-    height: 52px;
+    min-height: 52px;
     padding-left: 24px;
     padding-right: 24px;
+    padding-top: 5px;
     font-family: Figtree;
     font-size: 18px;
     line-height: 28px;
@@ -200,7 +198,6 @@
 
 /*my styles*/
 .dropdown_team_panel_opened {
-
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -230,7 +227,6 @@
     border-bottom: 1px solid #BDC1CAFF;
 }
 
-
 /* Tag 1 */
 .tag {
     position: relative;
@@ -252,7 +248,6 @@
     background-color: #FFFFFF;
     border-radius: 31px;
 }
-
 
 /* Tag 1 - Item */
 .tag .tag_item {
@@ -297,3 +292,95 @@
     color: #FFFFFFFF;
     background: #DD001CFF;
 }
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*Invitee - styles*/
+/* Dropdown Button 18 */
+.dropdown_invitee_selection {
+    position: relative;
+    opacity: 1;
+}
+
+
+.dropdown_invitee_selection .input_invitee {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 102px;
+    height: 44px;
+    padding-left: 16px;
+    padding-right: 44px;
+    font-family: Figtree;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #379AE6FF;
+    background: #F1F8FDFF;
+    border-radius: 2px;
+    border-width: 0px;
+    outline: none;
+    cursor: pointer;
+}
+
+.invitee_chevron {
+    position: absolute;
+    top:10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    fill: #379AE6FF;
+}
+
+
+/* hover */
+.dropdown_invitee_selection .input_invitee:hover {
+    color: #379AE6FF;
+    background: #F1F8FDFF;
+}
+
+/* focused */
+.dropdown_invitee_selection .input_invitee:focus {
+    color: #424856FF;
+    background: #FFFFFFFF;
+}
+
+/* disabled */
+.dropdown_invitee_selection .input_invitee:disabled {
+    color: #379AE6FF;
+    background: #F1F8FDFF;
+}
+
+.dropdown_invitee_selection :disabled + .icon, .dropdown_invitee_selection :disabled + .icon + .icon {
+    fill: #379AE6FF;
+}
+
+.dropdown_invitee_selection_opened {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    height: 44px;
+    width: 102px;
+    margin-top: -1px;
+    padding-left: 16px;
+    padding-right: 44px;
+    font-family: Figtree;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #171A1FFF;
+    background: #FFFFFFFF;
+    outline: none;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.dropdown_invitee_selection_opened:hover {
+    color: #379AE6FF;
+    background: #F1F8FDFF;
+}
+

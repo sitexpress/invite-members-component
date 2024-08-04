@@ -1,14 +1,19 @@
 import React, {useState, MouseEvent} from 'react';
 import classes from "./DropDownComponent.module.css";
-import {CompaniesListTypes, CompanyTitlesList, FunctionalTeamListTypes} from "../../data/dataTypes";
-import {CrossCircledIcon} from "@radix-ui/react-icons";
+import {
+    CompaniesListTypes,
+    CompanyTitlesList,
+    FunctionalTeamListTypes, ModeType,
+    PermissionList, StagedInvitationsListTypes,
+} from "../../types/ivnviteMembersTypes";
+import {ChevronDownIcon, CrossCircledIcon} from "@radix-ui/react-icons";
 
 type DropDownType = {
     isDropdownCompanySelectOpen: boolean
     setIsDropdownCompanySelectOpen: (value: boolean) => void
     setCompany: (value: CompanyTitlesList) => void
     company: CompanyTitlesList
-    mode: "company-selection" | "functional-team-assignment"
+    mode: ModeType
     isFunctionalTeamOpen: boolean
     setIsFunctionalTeamOpen: (value: boolean) => void
     team: FunctionalTeamListTypes[]
@@ -17,6 +22,10 @@ type DropDownType = {
     setCompaniesList: (value: CompaniesListTypes[]) => void
     functionalTeamList: FunctionalTeamListTypes[]
     setFunctionalTeamList: (value: FunctionalTeamListTypes[]) => void
+    invitee?: StagedInvitationsListTypes
+    stagedInvitationsList: StagedInvitationsListTypes[]
+    setStagedInvitationsList: (value: StagedInvitationsListTypes[]) => void
+
 }
 export const DropDownComponent: React.FC<DropDownType> = ({
                                                               isDropdownCompanySelectOpen,
@@ -29,16 +38,16 @@ export const DropDownComponent: React.FC<DropDownType> = ({
                                                               team,
                                                               setTeam,
                                                               companiesList,
-                                                              setCompaniesList,
                                                               functionalTeamList,
-                                                              setFunctionalTeamList
+                                                              setFunctionalTeamList,
+                                                              invitee,
+                                                              stagedInvitationsList,
+                                                              setStagedInvitationsList
+
                                                           }) => {
     const[hover, setHover]=useState(false)
     const[hoverElementIndex, setHoverElementIndex]=useState<number | "">('')
 
-    const stopPropHandler = () => {
-
-    }
     const addedFunctionalTeam = team.map((team, index) => (
         <div key={index} className={classes.tag}>
             <div
@@ -54,7 +63,8 @@ export const DropDownComponent: React.FC<DropDownType> = ({
                 onClick={(e) => e.stopPropagation()}
             >{team.title}</div>
             {
-                (hover && hoverElementIndex === index) && <CrossCircledIcon
+                (hover && hoverElementIndex === index) &&
+                <CrossCircledIcon
                     className={classes.cross_icon}
                     onMouseEnter={()=>(
                         setHover(true),
@@ -69,14 +79,12 @@ export const DropDownComponent: React.FC<DropDownType> = ({
             }
         </div>
     ))
-
     const setFunctionalTeamHandler = (addedTeam: FunctionalTeamListTypes) => {
         const functionalTeamListWithoutAddedTeam = functionalTeamList.filter(teamItem => teamItem.id !== addedTeam.id && teamItem)
         setFunctionalTeamList(functionalTeamListWithoutAddedTeam)
         setTeam([...team, {id: addedTeam.id, title: addedTeam.title}])
         setIsFunctionalTeamOpen(false)
     }
-
     const removeFunctionalTeamHandler = (e:MouseEvent<SVGElement>,removedTeam: FunctionalTeamListTypes) => {
         e.stopPropagation()
         const functionalTeamListWithRemovedTeam = [...functionalTeamList, removedTeam]
@@ -85,7 +93,6 @@ export const DropDownComponent: React.FC<DropDownType> = ({
         setTeam(newTeam)
         setIsFunctionalTeamOpen(false)
     }
-
 
     const dropDownCompanyPanel = companiesList.length > 0 && isDropdownCompanySelectOpen && companiesList.map((company, index) => (
         <div
@@ -110,37 +117,89 @@ export const DropDownComponent: React.FC<DropDownType> = ({
         </div>
     ))
 
+    const setPermissionHandlerAndCloseInviteeHandler = (inviteeValue:StagedInvitationsListTypes) => {
+
+        const stageInvitationsListWithChangedPermission = stagedInvitationsList.map(invitee => invitee.email.toLowerCase() === inviteeValue.email.toLowerCase() ? {
+                ...invitee, isOpen: !invitee.isOpen,
+                    permission: invitee.permission.map(item => ({title:item.title, set:!item.set}))
+        } : invitee)
+
+        console.log("stagedInvitationsListWithChangedPermission:",stageInvitationsListWithChangedPermission)
+
+        setStagedInvitationsList(stageInvitationsListWithChangedPermission)
+    }
+
+    const dropDownInviteePanel =  invitee?.isOpen && stagedInvitationsList.map((inviteeItem, index) =>
+        invitee.email.toLowerCase() === inviteeItem.email.toLowerCase() && (
+        <div
+            key={index}
+            className={classes.dropdown_invitee_selection_opened}
+            onClick={() => setPermissionHandlerAndCloseInviteeHandler(inviteeItem)}
+        >
+            {inviteeItem.permission.map(item => (item.set === false && item.title))}
+        </div>
+    ))
+
+
+
+    const openInviteeHandler = (email?:string) => {
+        const openItemOfstagedInvitationsList = stagedInvitationsList.map((inviteeItem) => inviteeItem.email.toLowerCase() === email?.toLowerCase() ? {
+            ...inviteeItem, isOpen: !inviteeItem.isOpen
+        } : inviteeItem)
+        setStagedInvitationsList(openItemOfstagedInvitationsList)
+    }
+
     return (
-        mode === "company-selection" ?
-            <>
-                <div
-                    className={classes.dropdown_company_selection}
-                    onClick={() => setIsDropdownCompanySelectOpen(!isDropdownCompanySelectOpen)}
-                >
-                    <input type="text" value={company}/>
-                    <div className={classes.chevron}>
-                        <CrossCircledIcon/>
-                    </div>
-                </div>
-                <div className={classes.dropdown_company_panel}>
-                    {dropDownCompanyPanel}
-                </div>
-            </>
-            :
-            <>
-                <div
-                    className={classes.dropdown_team_selection}
-                    onClick={() => setIsFunctionalTeamOpen(!isFunctionalTeamOpen)}
-                >
-                    <div className={classes.input}>
-                        {addedFunctionalTeam}
-                    </div>
-                    {/*<div className={classes.cover_layer}></div>*/}
-                </div>
-                <div className={classes.dropdown_team_panel}>
-                    {dropDownTeamPanel}
-                </div>
-            </>
+                mode === "company-selection" ?
+                    <>
+                        <div
+                            className={classes.dropdown_company_selection}
+                            onClick={() => setIsDropdownCompanySelectOpen(!isDropdownCompanySelectOpen)}
+                        >
+                            <input type="text" value={company} readOnly/>
+                            <div className={classes.chevron}>
+                                <ChevronDownIcon/>
+                            </div>
+                        </div>
+                        <div className={classes.dropdown_company_panel}>
+                            {dropDownCompanyPanel}
+                        </div>
+                    </>
+                : mode === "functional-team-assignment" ?
+                        <>
+                            <div
+                                className={classes.dropdown_team_selection}
+                                onClick={() => setIsFunctionalTeamOpen(!isFunctionalTeamOpen)}
+                            >
+                                <div className={classes.input}>
+                                    {addedFunctionalTeam}
+                                </div>
+                            </div>
+                            <div className={classes.dropdown_team_panel}>
+                                {dropDownTeamPanel}
+                            </div>
+                        </>
+                :
+                        <>
+                            <div
+                                className={classes.dropdown_invitee_selection}
+                                onClick={() => openInviteeHandler(invitee?.email)}
+                            >
+
+                                <div className={classes.input_invitee}>
+                                    {invitee && invitee.permission.map(item => item.set && item.title)}
+                                    <div>
+                                        <ChevronDownIcon className={classes.invitee_chevron}/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className={classes.dropdown_invitee_panel}>
+                                {dropDownInviteePanel}
+                            </div>
+                        </>
+
+
     );
 };
 
